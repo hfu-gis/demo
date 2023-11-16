@@ -6,6 +6,7 @@ import router from './router'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 
+// FixMe: zum Laufen bringen
 Vue.config.productionTip = false
 
 new Vue({
