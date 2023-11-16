@@ -12,18 +12,20 @@
     </v-row>
     <v-row v-else align="top" justify="center">
       <v-col cols="12" md="6">
-        <v-text-field label="Nickname" v-model="userData.nickName" required maxlength="25"
+        <v-text-field label="Nickname" v-model="userData.nickName" required maxlength="25" autocomplete="off"
                       :disabled="this.userData.isAlreadyRegistered"
                       :rules="nameRules"/>
-        <v-text-field label="Password" v-model="userData.password" required  maxlength="25"
+        <v-text-field label="Password" v-model="userData.password" required maxlength="25"
+                      autocomplete="current-password"
                       :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                       :type="showPassword ? 'text' : 'password'"
                       @click:append="showPassword = !showPassword"
                       :rules="nameRules"
         />
-        <v-text-field label="Name" v-model="userData.name" required  maxlength="25"
+        <v-text-field label="Name" v-model="userData.name" required maxlength="25" autocomplete="name"
                       :rules="nameRules"/>
-        <v-text-field label="Family name" v-model="userData.familyName" required  maxlength="25"
+        <v-text-field label="Family name" v-model="userData.familyName" required maxlength="25"
+                      autocomplete="family-name"
                       :rules="nameRules"/>
       </v-col>
 
@@ -50,6 +52,7 @@
 
 <script>
 import db from '../db'
+import {collection, getDocs, doc, getDoc, setDoc} from "firebase/firestore";
 
 export default {
   props: {},
@@ -88,23 +91,22 @@ export default {
       }
     },
 
-    register()  {
+    async register() {
       this.userData.isAlreadyRegistered = true
-      let docRef = db.collection('User').doc( this.userData.nickName)
-      docRef.set(this.userData)
-        .catch(error => console.debug('Error', error))
-        .then(() => this.success = true)
-      // docRef.update(userData)
+      const docRef = doc(db, 'User', this.userData.nickName);
+      await setDoc(docRef, this.userData);
     }
 
   },
-  created() {
-    let docRef = db.collection('LegalCountries')
-    docRef.get().then(docs => {
-      docs.forEach(doc => this.countries.push(doc.data().name))
-    })
-    docRef = db.collection('User').doc( 'Artingo')
-    docRef.get().then(doc => this.userData = doc.data())
+  async created() {
+    const countries = await getDocs(collection(db, "LegalCountries"));
+    countries.forEach(doc => this.countries.push(doc.data().name))
+
+    const docRef = doc(db, "User", "Artingo");
+    const user = await getDoc(docRef);
+    if (user.exists()) {
+      this.userData = user.data()
+    }
   }
 }
 </script>

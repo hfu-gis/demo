@@ -22,12 +22,12 @@
             <v-list-item-title>Order</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link>
+        <v-list-item link :to="{name:'Login'}">
           <v-list-item-action>
-            <v-icon>mdi-settings</v-icon>
+            <v-icon>mdi-login</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Country</v-list-item-title>
+            <v-list-item-title>Login</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -44,9 +44,9 @@
         <v-icon>mdi-cart</v-icon>
       </v-btn>
 
-      <!--<v-btn v-if="!isLoggedIn" icon :to="{name:'Login'}">
+      <v-btn v-if="!isLoggedIn" icon :to="{name:'Login'}">
         <v-icon>mdi-login</v-icon>
-      </v-btn>-->
+      </v-btn>
           <v-btn icon :to="{name:'Registration'}">
             <v-icon>mdi-account-plus</v-icon>
           </v-btn>
@@ -54,11 +54,11 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"  />
     </v-app-bar>
 
-    <v-content light>
+    <v-main light>
       <v-container fluid class="fill-height">
         <router-view  @login="isLoggedIn=$event"/>
       </v-container>
-    </v-content>
+    </v-main>
 
     <v-footer app>
       <span>&copy; 2019</span>

@@ -3,10 +3,10 @@
     <v-col class="col-md-4" v-for="(item,index) in products" :key="index">
       <v-card elevation="10">
         <v-img
-          :src="'http://picsum.photos/140?random='+index"
-          class="white--text align-end"
-          gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-          height="140"
+            :src="'http://picsum.photos/140?random='+index"
+            class="white--text align-end"
+            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+            height="140"
         >
           <v-card-title v-text="item.description"/>
         </v-img>
@@ -32,6 +32,7 @@
 
 <script>
 import db from '../db'
+import {collection, getDocs} from "firebase/firestore";
 
 export default {
 // gebt jeder Page einen eigenen Namen
@@ -72,21 +73,15 @@ export default {
 
 
 // Initialisierung
-  created() {
-    db.collection('Products').get()
-      .then(productsFromDB => {
-        productsFromDB.forEach(doc => {
-          this.products.push(doc.data())
-        })
-      })
-      .catch((err) => {
-        console.log('Error getting documents', err)
-      })
-
+  async created() {
+    const productsFromDB = await getDocs(collection(db, "Products"));
+    productsFromDB.forEach(doc => {
+      this.products.push(doc.data())
+    })
   }
 }
 </script>
 
 <style scoped>
-  /* CSS für diese Seite hier einfügen */
+/* CSS für diese Seite hier einfügen */
 </style>

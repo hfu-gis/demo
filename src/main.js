@@ -8,6 +8,7 @@ import '@mdi/font/css/materialdesignicons.css'
 
 // FixMe: zum Laufen bringen
 // ToDo: Packages aktualisieren
+// Fix-dependecies branch
 Vue.config.productionTip = false
 
 new Vue({
