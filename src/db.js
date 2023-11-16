@@ -1,5 +1,5 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBX_J8tsYxFeTpX4RL1sJeYrs_Fti9QI-U",
@@ -10,9 +10,10 @@ const firebaseConfig = {
   messagingSenderId: "593907011991",
   appId: "1:593907011991:web:b8508d375c11c6f8c5f4d2",
   measurementId: "G-L62LQEF4J1"
-}
-const db = firebase.initializeApp(firebaseConfig).firestore()
-export default db
+};
 
-const { TimeStamp, GeoPoint } = firebase.firestore
-export { TimeStamp, GeoPoint }
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+export default db

@@ -10,30 +10,10 @@ Vue.use(VueRouter)
 
 export default new VueRouter({
     routes: [
-        {
-            path: '/',
-            name: 'Root',
-            component: App
-        },
-        {
-            path: '/overview',
-            name: 'Overview',
-            component: Overview
-        },
-        {
-            path: '/login',
-            name: 'Login',
-            component: Login
-        },
-        {
-            path: '/register',
-            name: 'Registration',
-            component: Registration
-        },
-        {
-            path: '/order',
-            name: 'Order',
-            component: Order
-        },
+        { path: '/', name: 'Root', component: App },
+        { path: '/overview', name: 'Overview', component: Overview },
+        { path: '/login', name: 'Login', component: Login },
+        { path: '/register', name: 'Registration', component: Registration },
+        { path: '/order', name: 'Order', component: Order },
     ]
 })
